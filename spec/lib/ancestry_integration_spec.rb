@@ -11,19 +11,21 @@ describe 'Ancestree usage: tree modeling' do
     let(:chris) { Ancestree::Person.new('chris') }
     let(:zoe)   { Ancestree::Person.new('zoe')   }
 
-    context "when i ask the system for Marks' children" do
-      before :each do
-        @answer = mark.children
-      end
+    before :each do
+      mark.children << chris << zoe
+      kathy.children << chris << zoe
+    end
 
+    context "when i ask the system for Marks' children" do
       it 'returns an array with Chris and Zoe' do
-        @answer.should eq([@chris, @zoe])
+        mark.children.should eq([chris, zoe])
       end
     end
 
     context "when i ask the system for Mary's children" do
-      it 'returns an array with Chris and Zoe'
+      it 'returns an array with Chris and Zoe' do
+        kathy.children.should eq([chris, zoe])
+      end
     end
   end
-
 end
