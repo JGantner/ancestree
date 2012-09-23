@@ -4,13 +4,24 @@ require 'spec_helper'
 #   As a developper using ancestree
 #   I want to be able to model a family tree
 #   In order to query it afterward
-describe 'Ancestry usage: tree modeling' do
-  context 'given there are Mark and Kathy (married) with their two childs Chris and Zoe' do
-    context "when i ask the system for Marks' childs" do
-      it 'returns an array with Chris and Zoe'
+describe 'Ancestree usage: tree modeling' do
+  context 'given there are Mark and Kathy with their two childs Chris and Zoe' do
+    let(:mark)  { Ancestree::Person.new('mark')  }
+    let(:kathy) { Ancestree::Person.new('kathy') }
+    let(:chris) { Ancestree::Person.new('chris') }
+    let(:zoe)   { Ancestree::Person.new('zoe')   }
+
+    context "when i ask the system for Marks' children" do
+      before :each do
+        @answer = mark.children
+      end
+
+      it 'returns an array with Chris and Zoe' do
+        @answer.should eq([@chris, @zoe])
+      end
     end
 
-    context "when i ask the system for Mary's childs" do
+    context "when i ask the system for Mary's children" do
       it 'returns an array with Chris and Zoe'
     end
   end
