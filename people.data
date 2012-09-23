@@ -1,0 +1,6 @@
+"Max Schmidt" parent_of "Peter Schmidt", "Thomas Schmidt", "Lola Maier".
+"Peter Schmidt" married_to "Johanna Schmidt".
+"Peter Schmidt" parent_of "Gregor Schmidt", "Maria Huber".
+
+"Heinz Huber" parent_of "Lukas Huber", "Jakob Huber", "Julia Maier".
+"Jakob Huber" married_to "Maria Huber".

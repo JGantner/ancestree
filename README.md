@@ -1,6 +1,20 @@
 # Ancestree
 
-TODO: Write a gem description
+This gem provides a class to model a family tree and query some information
+about it. 
+
+The Idea came from from an event in our company called Language Shootout. In a
+Language Shootout every developper can present his favorite programming language 
+and can show how it is used to solve a predefined task and explain why he/she thinks the
+language is the 'best'.
+
+It's intended to show the pure language without the use of libraries as well as
+showing the typical style of the language.
+
+The task description can be found in the task-description.txt file (in german)
+and sample test data can be found in the people.data file.
+
+A diffferent solution for the same Task can be found here: https://github.com/vschep/family-tree
 
 ## Installation
 
