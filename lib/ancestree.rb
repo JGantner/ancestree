@@ -1,5 +1,7 @@
 require "ancestree/version"
 
 module Ancestree
-  # Your code goes here...
+  autoload :Store,  'ancestree/store'
+  autoload :Person, 'ancestree/person'
+  autoload :Parser, 'ancestree/parser'
 end
