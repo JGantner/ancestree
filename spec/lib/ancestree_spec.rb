@@ -12,4 +12,8 @@ describe Ancestree do
   it 'defines a parser class' do
     Ancestree::Parser.class.should eq(Class)
   end
+
+  it 'defines a children collection class' do
+    Ancestree::ChildrenCollection.class.should eq(Class)
+  end
 end
