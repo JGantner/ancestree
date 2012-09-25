@@ -4,7 +4,7 @@ module Ancestree
 
     def initialize(name)
       @name = name
-      @children = []
+      @children = ChildrenCollection.new_with_parent(self)
       @parents = []
     end
 
@@ -14,6 +14,10 @@ module Ancestree
 
     def <=>(other)
       self.name <=> other.name
+    end
+
+    def parent=(other)
+      parents << other
     end
   end
 end

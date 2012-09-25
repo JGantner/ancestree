@@ -31,7 +31,7 @@ describe Ancestree::ChildrenCollection do
 
     it 'associates the other object with the collections parent' do
       other.stub(:parent=)
-      other.shoudl_receive(:parent=).with(parent)
+      other.should_receive(:parent=).with(parent)
       collection << other
     end
   end

@@ -57,4 +57,12 @@ describe Ancestree::Person do
       end
     end
   end
+
+  describe '#parent=(object)' do
+    it 'adds the given object to the parents collection' do
+      chris.parent = mark
+
+      chris.parents.should include mark
+    end
+  end
 end
