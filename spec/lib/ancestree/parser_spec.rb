@@ -29,6 +29,12 @@ describe Ancestree::Parser do
     let(:statement) { "<Gilwen> married_to <Alatar>." }
     let(:gilwen) { store.get('Gilwen') }
     let(:alatar) { store.get('Alatar') }
+    let(:bregor) { store.get('Bregor') }
+    let(:hirwen) { store.get('Hirwen') }
+    let(:bregil) { store.get('Bregil') }
+    let(:bregolas) { store.get('Bregolas') }
+    let(:barahir) { store.get('Barahir') }
+    let(:gwindor) { store.get('Gwindor') }
 
     before :each do
       statement.stub(:split => %w[<Gilwen> married_to <Alatar>.])
@@ -39,20 +45,47 @@ describe Ancestree::Parser do
       parser.process_tree_statement(statement)
     end
 
-    it 'converts the part 1 and 3 to n to identifiers' do
-      parser.should_receive(:identifier).twice
-      parser.process_tree_statement(statement)
+    context 'given a married_to statement' do
+      it 'converts the part 1 and 3 to n to identifiers' do
+        parser.should_receive(:identifier).twice
+        parser.process_tree_statement(statement)
+      end
+
+      it 'queries the store with all identifers' do
+        gilwen; alatar
+        store.should_receive(:get).twice.and_return(gilwen, alatar)
+        parser.process_tree_statement(statement)
+      end
+
+      it 'sends the first person the message defined in part two with an array of people identified by the statements arguments' do
+        gilwen.should_receive(:married_to).with([alatar])
+        parser.process_tree_statement(statement)
+      end
     end
 
-    it 'queries the store with all identifers' do
-      gilwen; alatar
-      store.should_receive(:get).twice.and_return(gilwen, alatar)
-      parser.process_tree_statement(statement)
-    end
+    context 'given a parent_of statement' do
+      let(:statement) { '<Bregor> parent_of <Hirwen>, <Gilwen>, <Bregil>, <Bregolas>, <Barahir>, <Gwindor>.' }
+ 
+      before :each do
+        statement.stub(:split => %w(<Bregor> parent_of <Hirwen>, <Gilwen>, <Bregil>, <Bregolas>, <Barahir>, <Gwindor>.))
+      end
 
-    it 'sends the first person the message defined in part two with an array of people identified by the statements arguments' do
-      gilwen.should_receive(:married_to).with([alatar])
-      parser.process_tree_statement(statement)
+      it 'converts the part 1 and 3 to n to identifiers' do
+        parser.should_receive(:identifier).exactly(7).times
+        parser.process_tree_statement(statement)
+      end
+
+      it 'queries the store with all identifers' do
+        bregor; hirwen; gilwen; bregil; bregolas; barahir; gwindor
+        store.should_receive(:get).exactly(7).times.and_return(bregor,hirwen, gilwen, bregil, bregolas, barahir, gwindor)
+        parser.process_tree_statement(statement)
+      end
+
+      it 'sends the first person the message defined in part two with an array of people identified by the statements arguments' do
+        bregor.should_receive(:parent_of).with([hirwen, gilwen, bregil, bregolas, barahir, gwindor])
+        parser.process_tree_statement(statement)
+      end
+
     end
   end
 

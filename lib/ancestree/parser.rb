@@ -14,8 +14,8 @@ module Ancestree
     end
 
     def process_tree_statement(statement)
-      obj, rel, other_objs = statement.split(" ")
-      objects = [obj] + [other_objs]
+      obj, rel, *other_objs = statement.split(" ")
+      objects = [obj] + other_objs
       people = objects.map(){|o| store.get( identifier(o) ) }
 
       people.first.send(rel.to_sym, people[1..-1])
