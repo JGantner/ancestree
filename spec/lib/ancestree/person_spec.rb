@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Ancestree::Person do
   let(:mark) { Ancestree::Person.new("mark") }
+  let(:mary) { Ancestree::Person.new("mary") }
   let(:chris) { Ancestree::Person.new("chris") }
   let(:zoe) { Ancestree::Person.new("zoe") }
 
@@ -63,6 +64,58 @@ describe Ancestree::Person do
       chris.parent = mark
 
       chris.parents.should include mark
+    end
+  end
+
+  describe '#married_to' do
+    it 'sets the spouse' do
+      mark.married_to([mary])
+      mark.spouse.should eq(mary)
+    end
+  end
+
+  describe '#parent_of' do
+    it 'adds all given people to the children' do
+      mark.parent_of([chris, zoe])
+      mark.children.should eq([chris, zoe])
+    end
+  end
+
+  describe '#parents' do
+    it 'returns a sorted version of the parents collection' do
+      chris.parent = mary
+      chris.parent = mark
+
+      chris.parents.should eq([mark, mary])
+    end
+  end
+
+  describe '#grandparents' do
+    context 'given there are no parents' do
+      it 'returns []' do
+        chris.grandparents.should eq([])
+      end 
+    end 
+
+    context 'given chris parent is mark and mark has no parents' do
+      it 'returns []' do
+        chris.parent = mark
+        chris.grandparents.should eq([])
+      end
+    end
+  end
+
+  describe '#grandchildren' do
+    context 'given there are no children' do
+      it 'returns []' do
+        chris.grandchildren.should eq([])
+      end
+    end
+
+    context 'given chris parent is mark and chris has no children' do
+      it 'returns []' do
+        mark.grandchildren.should eq([])
+      end
     end
   end
 end
